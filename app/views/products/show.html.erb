@@ -9,15 +9,29 @@
       <h1><%= @product.name %></h1>
       <p><%= @product.description %></p>
       <div class="quantity">
-        <span><%= @product.quantity %> in stock at </span>
-        <span><%= @product.price %></span>
+        <% if @product.quantity == 0 %>
+          <span> SOLD OUT </span>
+        <% else %>
+          <span><%= @product.quantity %> in stock at </span>
+        <% end %>
+        <span><%= humanized_money_with_symbol @product.price %></span>
       </div>
-      <div class="price">          
-        <%= button_to add_item_cart_path(product_id: @product.id), class: 'btn' , method: :post do %>
-          <%= fa_icon "shopping-cart", text: 'Add' %>
+      <div class="price">
+        <% if @product.quantity > 0 %>
+          <%= button_to add_item_cart_path(product_id: @product.id), class: 'btn' , method: :post do %>
+            <%= fa_icon "shopping-cart", text: 'Add' %>
+          <% end %>
         <% end %>          
       </div>
     </div>
   </article>
+  
+  <% if current_user %>
+    <%= render "review_form" %>
+  <% end %>
+
+  <table class="table table-bordered"><br>
+    <%= render "review" %>
+  </table>
 
 </section>
