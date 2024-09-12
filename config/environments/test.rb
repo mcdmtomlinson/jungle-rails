@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require "action_mailer/railtie"
 
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
@@ -37,6 +38,8 @@ Rails.application.configure do
   config.active_storage.service = :test
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
